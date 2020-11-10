@@ -1,3 +1,4 @@
+# Getting the imports
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import time
@@ -11,17 +12,21 @@ while True:
 
     print("-----SEARCHING-----")
 
+    # opening the site for the random word
     driver.get("https://svnweb.freebsd.org/csrg/share/dict/words?view=co&content-type=text/plain")
 
     content = tuple(driver.find_element_by_xpath("/html/body/pre").text.splitlines())
 
+    # getting the random word
     random_word = random.choice(content)
 
+    # checking
     go_daddy_website_url = f"https://in.godaddy.com/domainsearch/find?checkAvail=1&tmskey=1dom_03_godaddyb&domainToCheck={random_word}"
     driver.get(go_daddy_website_url)
     time.sleep(1)
     go_daddy = driver.find_element_by_class_name("domain-name-text").text
 
+    # It's available or not
     if go_daddy.count("is available") > 0:
         print(f"Yay! Be fast {random_word}.com is available")
     else:
@@ -32,6 +37,7 @@ while True:
     print("2) Search again")
     print("3) Exit")
 
+    # Doing as per the instructions
     inp = int(input("Enter the option - \t"))
 
     if inp == 1:
